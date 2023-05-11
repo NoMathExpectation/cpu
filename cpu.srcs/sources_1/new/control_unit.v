@@ -18,93 +18,30 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-
 module control_unit(
     input clk,
     input [31:0] instruction,
-    output reg reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src
-);
-
-always@(posedge clk)
-begin
-    case(instruction[31:26])
-        //jump
-        6'h2:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00100000000;
-            end
-        //jal
-        6'h3:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b01010000000;
-            end        
-        //beq
-        6'h4:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00001000100;
-            end
-        //bne
-        6'h5:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000100100;           
-            end
-        //lw
-        6'h23:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;        
-            end
-        //sw
-        6'h2b:
-            begin
-               {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;         
-            end
-        //addi
-        6'h8:
-            begin
-               {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;          
-            end        
-        //addiu
-        6'h9:
-            begin
-               {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;    
-            end
-        //slti
-        6'ha:            
-            begin
-               {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        //sltiu
-        6'hb:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        //andi
-        6'hc:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        //ori
-        6'hd:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        //xori
-        6'he:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        //lui
-        6'hf:
-            begin
-                {reg_dst,reg_write,jump,jal,branch,nbranch,mem_read,mem2reg,alu_op,mem_write,alu_src} = 11'b00000000000;     
-            end
-        
-        
-        
-        
-    endcase
+    output reg_dst,reg_write,jump,jal,sftmd,jr,branch,nbranch,mem2reg,mem_write,alu_src,
+    output [1:0] alu_op
     
-end
+);
+wire i_format,r_format; 
+assign i_format = (instruction[31:29]==3'b001) ? 1'b1 : 1'b0;
+assign r_format = (instruction[31:26]==6'b000000)? 1'b1:1'b0;
+assign jump = (instruction[31:26]==6'b000010);
+assign jr = ((instruction[31:26]==6'b000000)&&(instruction[5:0]==6'b001000)) ? 1'b1 : 1'b0;
+
+assign branch = (instruction[31:26]==6'b000100);
+assign nbranch = (instruction[31:26]==6'b000101);
+assign mem2reg = (instruction[31:26]==6'b100100)||(instruction[31:26]==6'b100101)||(instruction[31:26]==6'b110000)||(instruction[31:26]==6'b100011);
+assign mem_write = (instruction[31:26]==6'b101011)||(instruction[31:26]==6'b101000)||(instruction[31:26]==6'b101001)||(instruction[31:26]==6'b111000);
+assign alu_src = (i_format)&&!(branch)&&!(nbranch);
+
+assign reg_dst = r_format; 
+assign reg_write = (r_format || (instruction[31:26]==6'b100011) || jal || i_format) &&!(jr);
+assign alu_op = { (r_format || i_format) , (branch || nbranch)};
+assign sftmd = (((instruction[5:0]==6'b000000)||(instruction[5:0]==6'b000010)||(instruction[5:0]==6'b000011)||(instruction[5:0]==6'b000100)||(instruction[5:0]==6'b000110)||(instruction[5:0]==6'b000111))&& r_format) ? 1'b1 : 1'b0;    
+
     
 endmodule
+
