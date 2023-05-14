@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
 -- Date        : Sun May 14 21:03:14 2023
 -- Host        : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
+--               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ data_memory_internal_stub.vhdl
 -- Design      : data_memory_internal
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcsg324-1
@@ -12,7 +12,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity data_memory_internal is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix is
   Port ( 
     clka : in STD_LOGIC;
     wea : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -21,9 +21,9 @@ entity data_memory_internal is
     douta : out STD_LOGIC_VECTOR ( 31 downto 0 )
   );
 
-end data_memory_internal;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix;
 
-architecture stub of data_memory_internal is
+architecture stub of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
