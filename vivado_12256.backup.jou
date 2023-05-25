@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Thu May 25 15:26:13 2023
+# Process ID: 12256
+# Current directory: D:/CSEFirstYear/CS202CPU/cpu
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent16244 D:\CSEFirstYear\CS202CPU\cpu\cpu.xpr
+# Log file: D:/CSEFirstYear/CS202CPU/cpu/vivado.log
+# Journal file: D:/CSEFirstYear/CS202CPU/cpu\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/CSEFirstYear/CS202CPU/cpu/cpu.xpr
+update_compile_order -fileset sources_1
