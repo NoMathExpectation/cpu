@@ -21,31 +21,42 @@
 
 
 module registers(
-    input is_write,
-    input clk,
+    input reset,
+
+    input to_read,
+
     input [4:0] read1,
     input [4:0] read2,
-    input [4:0] write,
-    input [31:0] write_data,
     output reg [31:0] read_data1,
-    output reg [31:0] read_data2
+    output reg [31:0] read_data2,
+    
+    input to_write,
+    input [4:0] write,
+    input [31:0] write_data
     );
     reg [31:0] data [31:0];
     reg [5:0] i;
     
     initial begin
         for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
-            data[i] <= 32'd0;
+            data[i] = 32'd0;
         end
+        data[28] = 32'h10008000;
+        data[29] = 32'h7ffffffc;
     end
     
-    always @(posedge clk) begin
-        if (is_write) begin
-            data[write] <= write_data;
-        end else begin
-            read_data1 <= data[read1];
-            read_data2 <= data[read2];
+    always @(posedge reset) begin
+        for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
+            data[i] = 32'd0;
         end
+        data[28] = 32'h10008000;
+        data[29] = 32'h7ffffffc;
     end
     
+    always @(posedge to_read) begin
+        read_data1 <= data[read1];
+        read_data2 <= data[read2];
+    end
+    
+    always @(posedge to_write) data[write] <= write_data;
 endmodule

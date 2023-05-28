@@ -22,7 +22,6 @@
 
 module execute(
     input clk,
-    output reg done_clk,
     
     input [5:0] opcode,
     
@@ -53,8 +52,8 @@ module execute(
                 6'b000000: out = reg2 << shamt;
                 6'b000010: out = reg2 >> shamt;
                 6'b000100: out = reg2 << reg1;
-                6'b000011: out = {reg2[31], reg2[30:0] >> shamt};
-                6'b000111: out = {reg2[31], reg2[30:0] >> reg1};
+                6'b000011: out = reg2 >>> shamt;
+                6'b000111: out = reg2 >>> reg1;
                 6'b100000, 6'b100001: out = reg1 + reg2;
                 6'b100010, 6'b100011: out = reg1 - reg2;
                 6'b100100: out = reg1 & reg2;
@@ -65,11 +64,7 @@ module execute(
                 6'b101011: out = reg1 < reg2;
             endcase
         endcase
-        
-        done_clk = clk;
     end
-    
-    always @(negedge clk) done_clk = clk;
     
     function slt;
         input [31:0] a;
