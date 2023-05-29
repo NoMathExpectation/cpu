@@ -22,6 +22,7 @@
 
 module registers(
     input reset,
+    input clk,
 
     input to_read,
 
@@ -45,7 +46,7 @@ module registers(
         data[29] = 32'h7ffffffc;
     end
     
-    always @(posedge reset, posedge to_read, posedge to_write) begin
+    always @(posedge clk) begin
         if (reset) begin
             for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
                 data[i] = 32'd0;

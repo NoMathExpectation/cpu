@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
 // Date        : Sun May 14 15:05:22 2023
 // Host        : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/uart/uart_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top uart -prefix
+//               uart_ uart_stub.v
 // Design      : uart
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcsg324-1

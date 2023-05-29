@@ -41,12 +41,12 @@ read_verilog -library xil_defaultlib {
   D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/new/syscall.v
   D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/new/board.v
 }
+read_ip -quiet D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/uart/uart.xci
+
 read_ip -quiet D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust.xci
 set_property used_in_implementation false [get_files -all d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust_board.xdc]
 set_property used_in_implementation false [get_files -all d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust.xdc]
 set_property used_in_implementation false [get_files -all d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust_ooc.xdc]
-
-read_ip -quiet D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/uart/uart.xci
 
 read_ip -quiet D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.xci
 set_property used_in_implementation false [get_files -all d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_ooc.xdc]

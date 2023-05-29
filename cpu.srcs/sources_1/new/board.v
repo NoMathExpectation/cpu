@@ -44,6 +44,7 @@ module board(
     reg [2:0] cpu_step = 3'b0;
     
     wire cpu_clk, uart_clk;
+    wire ctrl_cpu_clk;
     clk_adjust clk_adj(.input_clk(clk), .cpu_clk(cpu_clk), .uart_clk(uart_clk));
     
     wire uart_proc_clk, uart_write, uart_done;
@@ -52,7 +53,7 @@ module board(
     uart u(.upg_clk_i(uart_clk), .upg_rst_i(reset), .upg_rx_i(uart_rx), .upg_clk_o(uart_proc_clk), .upg_wen_o(uart_write), .upg_adr_o(uart_addr), .upg_dat_o(uart_data), .upg_done_o(uart_done), .upg_tx_o(uart_tx));
     
     reg [31:0] pc = 32'b0;
-    wire [31:0] inst = 32'b0;
+    wire [31:0] inst;
     
     wire [5:0] opcode = inst[31:26];
     
@@ -87,20 +88,19 @@ module board(
     
     wire [31:0] mem_data_out;
     wire [31:0] exec_res;
-    wire [31:0] write_data = (opcode == 6'b100011 ? mem_data_out : (type_j ? pc + 32'd8 : exec_res));
-    registers regs(.reset(reset), .to_read(read_reg), .read1(reg_read1), .read2(reg_read2), .read_data1(read_data1), .read_data2(read_data2), .to_write(write_reg), .write(reg_write), .write_data(write_data));
+    wire [31:0] write_data = syscall_inst ? syscall_write : (opcode == 6'b100011 ? mem_data_out : (type_j ? pc + 32'd8 : exec_res));
+    registers regs(.reset(reset), .clk(ctrl_cpu_clk), .to_read(read_reg), .read1(reg_read1), .read2(reg_read2), .read_data1(read_data1), .read_data2(read_data2), .to_write(write_reg), .write(reg_write), .write_data(write_data));
     
     wire call = (cpu_step == 3'b010) & syscall_inst;
-    wire mode = syscall_inst ? read_data1 : 32'b0;
-    wire value = syscall_inst ? read_data2 : 32'b0;
-    wire ctrl_cpu_clk;
-    syscall sys(.clk(call), .reset(reset), .ok(ok), .up(up), .down(down), .left(left), .right(right), .cpu_clk(cpu_clk), .ctrl_cpu_clk(ctrl_cpu_clk), .led_l(led_l), .led_r(led_r), .led_show(led_show), .light(light), .mode(mode), .value_in(value), .value_out(syscall_reg_write), .reg_write(syscall_write));
+    wire [31:0] mode = syscall_inst ? read_data1 : 32'b0;
+    wire [31:0] value = syscall_inst ? read_data2 : 32'b0;
+    syscall sys(.clk(call), .reset(reset), .ok(ok), .up(up), .down(down), .left(left), .right(right), .cpu_clk(cpu_clk), .ctrl_cpu_clk(ctrl_cpu_clk), .led_l(led_l), .led_r(led_r), .led_show(led_show), .light(light), .mode(mode), .value_in(value), .value_out(syscall_write), .reg_write(syscall_reg_write));
     
     wire calc = (cpu_step == 3'b010) & ~syscall_inst;
     execute exec(.clk(calc), .opcode(opcode), .reg1(read_data1), .reg2(read_data2), .immediate(immediate), .out(exec_res), .shamt(shamt), .funct(funct));
     
     wire mem_clk = (cpu_step == 3'b011) & ((opcode == 6'b100011) | (opcode == 6'b101011));
-    wire mem_write = opcode == 6'b101011;
+    wire mem_write = (opcode == 6'b101011);
     wire [31:0] mem_addr = exec_res;
     wire [31:0] mem_data_in = read_data2;
     data_memory data_mem(.cpu_mode(cpu_mode), .cpu_clk(mem_clk), .cpu_write(mem_write), .cpu_addr(mem_addr), .cpu_data_in(mem_data_in), .cpu_data_out(mem_data_out), .uart_clk(uart_proc_clk), .uart_write(uart_write), .uart_addr(uart_addr), .uart_data_in(uart_data));
@@ -109,7 +109,7 @@ module board(
     wire [31:0] pcp4 = pc + 32'd4;
     wire [31:0] jump_addr = {pcp4[31:28], address, 2'b0 };
 
-    always @(posedge reset, posedge ok, posedge ctrl_cpu_clk) begin
+    always @(posedge cpu_clk) begin
         if (reset) begin
             cpu_mode = 1'b0;
             cpu_step = 3'b0;

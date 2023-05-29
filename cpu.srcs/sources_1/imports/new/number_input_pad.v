@@ -36,9 +36,9 @@ module number_input_pad(
 
     always @(posedge reset, posedge up, posedge down, posedge left, posedge right) begin
         if (reset) begin
-            number <= set_number;
-            digit <= 4'd0;
-            multiplier <= 32'd1;
+            number = set_number;
+            digit = 4'd0;
+            multiplier = 32'd1;
         end else if (up) begin
             temp = number + multiplier;
             number = temp;

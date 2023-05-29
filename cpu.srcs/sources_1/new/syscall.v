@@ -83,7 +83,7 @@ module syscall(
     
     assign reg_write = (mode == 32'd5);
 
-    always @(posedge clk, posedge cpu_clk, posedge ok, posedge reset) begin
+    always @(posedge cpu_clk) begin
         if (reset) begin
             block <= 1'b0;
             sleep <= 64'b0;
@@ -117,9 +117,9 @@ module syscall(
                 endcase
             end
 
-            if (cpu_clk & (sleep != 64'b0)) sleep <= sleep - 64'b1;
+            if (sleep != 64'b0) sleep <= sleep - 64'b1;
 
-            if (ok) begin
+            if (block & ok) begin
                 value_out <= num_read;
                 block <= 1'b0;
             end
