@@ -46,7 +46,6 @@ module syscall(
     );
     reg block = 1'b0;
     reg [63:0] sleep = 64'b0;
-    always @(posedge cpu_clk) if (sleep != 64'b0) sleep = sleep - 64'b1;
     
     assign ctrl_cpu_clk = cpu_clk & ~block & (sleep == 64'b0);
     
@@ -65,7 +64,7 @@ module syscall(
     reg num_show_sign = 1'b0;
     
     wire [31:0] num_read;
-    reg num_read_reset = 1'b0;
+    wire num_read_reset = cpu_clk & ~clk & (mode == 32'd5);
     reg num_read_sign = 1'b0;
     wire [3:0] num_read_digit;
     reg [7:0] num_read_dot = 8'b0;
@@ -82,50 +81,48 @@ module syscall(
     led_show show(.led_in(led_raw), .clk(cpu_clk), .led_out_l(led_l), .led_out_r(led_r), .led_show(led_show_no_blink));
     assign led_show = (block & blink) ? 4'b0 : led_show_no_blink;
     
-    always @(posedge clk) begin
-        case (mode)
-            32'd1: begin
-                num_show <= value_in;
-                num_show_sign <= 1'b1;
-            end
-            32'd5: begin
-                block <= 1'b1;
-                num_read_reset <= 1'b1;
-            end
-            32'd32: begin
-                sleep <= value_in * 64'd23000;
-            end
-            32'd35: begin
-                light <= value_in;
-            end
-            32'd36: begin
-                num_show <= value_in;
-                num_show_sign <= 1'b0;
-            end
-        endcase
-    end
-    
     assign reg_write = (mode == 32'd5);
-    
-    always @(negedge clk) begin
-        num_read_reset <= 1'b0;
-    end
-    
-    always @(posedge reset) begin
-        block <= 1'b0;
-        sleep <= 64'b0;
+
+    always @(posedge clk, posedge cpu_clk, posedge ok, posedge reset) begin
+        if (reset) begin
+            block <= 1'b0;
+            sleep <= 64'b0;
         
-        num_show <= 32'b0;
-        num_show_sign <= 1'b0;
+            num_show <= 32'b0;
+            num_show_sign <= 1'b0;
         
-        num_read_reset <= 1'b1;
-        num_read_sign <= 1'b0;
+            num_read_sign <= 1'b0;
         
-        value_out <= 32'b0;
-    end
-    
-    always @(posedge ok) begin
-        value_out <= num_read;
-        block <= 1'b0;
+            value_out <= 32'b0;
+        end else begin
+            if (clk) begin
+                case (mode)
+                    32'd1: begin
+                        num_show <= value_in;
+                        num_show_sign <= 1'b1;
+                    end
+                    32'd5: begin
+                        block <= 1'b1;
+                    end
+                    32'd32: begin
+                        sleep <= value_in * 64'd23000;
+                    end
+                    32'd35: begin
+                        light <= value_in;
+                    end
+                    32'd36: begin
+                        num_show <= value_in;
+                        num_show_sign <= 1'b0;
+                    end
+                endcase
+            end
+
+            if (cpu_clk & (sleep != 64'b0)) sleep <= sleep - 64'b1;
+
+            if (ok) begin
+                value_out <= num_read;
+                block <= 1'b0;
+            end
+        end
     end
 endmodule

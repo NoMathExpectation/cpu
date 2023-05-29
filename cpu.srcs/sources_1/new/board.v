@@ -105,30 +105,31 @@ module board(
     wire [31:0] mem_data_in = read_data2;
     data_memory data_mem(.cpu_mode(cpu_mode), .cpu_clk(mem_clk), .cpu_write(mem_write), .cpu_addr(mem_addr), .cpu_data_in(mem_data_in), .cpu_data_out(mem_data_out), .uart_clk(uart_proc_clk), .uart_write(uart_write), .uart_addr(uart_addr), .uart_data_in(uart_data));
     
-    wire jump = cpu_step == 3'b011;
+    wire jump = (cpu_step == 3'b011);
     wire [31:0] pcp4 = pc + 32'd4;
     wire [31:0] jump_addr = {pcp4[31:28], address, 2'b0 };
-    always @(posedge jump) begin
-        if (opcode[5:1] == 5'b00001) pc = jump_addr;
-        else if ((opcode == 6'b0) & (funct == 6'b001000)) pc = read_data1;
-        else pc = pcp4;
-    end
-    
-    always @(posedge reset) begin
-        cpu_mode <= 1'b0;
-        cpu_step <= 2'b0;
-        pc <= 32'h00400000;
-    end
-    
-    always @(posedge ok) begin
-        if (~cpu_mode) begin
-            if (uart_done) cpu_mode = 1'b1;
+
+    always @(posedge reset, posedge ok, posedge ctrl_cpu_clk) begin
+        if (reset) begin
+            cpu_mode = 1'b0;
+            cpu_step = 3'b0;
+            pc = 32'h00400000;
+        end else begin
+            if (ok & uart_done) cpu_mode = 1'b1;
+
+            if (cpu_mode) begin
+                if (ctrl_cpu_clk) begin
+                    cpu_step = cpu_step + 3'b1;
+                    if (cpu_step > 3'b100) cpu_step = 3'b0;
+                
+                    if (jump) begin
+                        if (opcode[5:1] == 5'b00001) pc = jump_addr;
+                        else if ((opcode == 6'b0) & (funct == 6'b001000)) pc = read_data1;
+                        else pc = pcp4;
+                    end
+                end
+            end
         end
-    end
-    
-    always @(cpu_clk) begin
-        if (cpu_mode) cpu_step = cpu_step + 3'b1;
-        if (cpu_step > 3'b100) cpu_step = 3'b0;
     end
     
 endmodule

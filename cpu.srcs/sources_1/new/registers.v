@@ -45,18 +45,17 @@ module registers(
         data[29] = 32'h7ffffffc;
     end
     
-    always @(posedge reset) begin
-        for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
-            data[i] = 32'd0;
+    always @(posedge reset, posedge to_read, posedge to_write) begin
+        if (reset) begin
+            for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
+                data[i] = 32'd0;
+            end
+            data[28] = 32'h10008000;
+            data[29] = 32'h7ffffffc;
+        end else if (to_write) data[write] <= write_data;
+        else if (to_read) begin
+            read_data1 <= data[read1];
+            read_data2 <= data[read2];
         end
-        data[28] = 32'h10008000;
-        data[29] = 32'h7ffffffc;
     end
-    
-    always @(posedge to_read) begin
-        read_data1 <= data[read1];
-        read_data2 <= data[read2];
-    end
-    
-    always @(posedge to_write) data[write] <= write_data;
 endmodule

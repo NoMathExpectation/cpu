@@ -33,38 +33,32 @@ module number_input_pad(
     reg [31:0] multiplier = 32'd1;
     reg [31:0] temp = 32'd0;
     localparam [31:0] max = 32'd9_999_999;
-    
-    always @(posedge reset) begin
-        number <= set_number;
-        digit <= 4'd0;
-        multiplier <= 32'd1;
-    end
-    
-    always @(posedge left) begin
-        multiplier = multiplier * 32'd10;
-        digit = digit + 4'd1;
-        if (multiplier > max) begin
-           multiplier = 32'd1;
-           digit = 4'd0;
+
+    always @(posedge reset, posedge up, posedge down, posedge left, posedge right) begin
+        if (reset) begin
+            number <= set_number;
+            digit <= 4'd0;
+            multiplier <= 32'd1;
+        end else if (up) begin
+            temp = number + multiplier;
+            number = temp;
+        end else if (down) begin
+            temp = number - multiplier;
+            number = temp;
+        end else if (left) begin
+            multiplier = multiplier * 32'd10;
+            digit = digit + 4'd1;
+            if (multiplier > max) begin
+                multiplier = 32'd1;
+            digit = 4'd0;
+            end
+        end else if (right) begin
+            multiplier = multiplier / 32'd10;
+            digit = digit - 4'd1;
+            if (multiplier == 32'd0) begin
+                multiplier = max / 32'd10;
+                digit = 4'd6;
+            end
         end
-    end
-    
-    always @(posedge right) begin
-        multiplier = multiplier / 32'd10;
-        digit = digit - 4'd1;
-        if (multiplier == 32'd0) begin
-            multiplier = max / 32'd10;
-            digit = 4'd6;
-        end
-    end
-    
-    always @(posedge up) begin
-        temp = number + multiplier;
-        number = temp;
-    end
-    
-    always @(posedge down) begin
-        temp = number - multiplier;
-        number = temp;
     end
 endmodule
