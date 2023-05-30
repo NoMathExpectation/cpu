@@ -1,11 +1,11 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-// Date        : Sun May 14 15:32:39 2023
-// Host        : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub -rename_top clk_adjust -prefix
-//               clk_adjust_ clk_wiz_0_stub.v
-// Design      : clk_wiz_0
+// Date        : Tue May 30 20:00:25 2023
+// Host        : LAPTOP-5JMHFCDN running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub
+//               D:/CSEFirstYear/CS202CPU/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust_stub.v
+// Design      : clk_adjust
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcsg324-1
 // --------------------------------------------------------------------------------

@@ -35,7 +35,7 @@ module syscall(
     
     output [7:0] led_l,
     output [7:0] led_r,
-    output [3:0] led_show,
+    output [7:0] led_show,
     
     output reg [31:0] light = 32'b0,
     
@@ -79,7 +79,7 @@ module syscall(
         
     wire [3:0] led_show_no_blink;
     led_show show(.led_in(led_raw), .clk(cpu_clk), .led_out_l(led_l), .led_out_r(led_r), .led_show(led_show_no_blink));
-    assign led_show = (block & blink) ? 4'b0 : led_show_no_blink;
+    assign led_show = (block & blink) ? 7'b0 : {2{led_show_no_blink}};
     
     assign reg_write = (mode == 32'd5);
 

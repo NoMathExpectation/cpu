@@ -23,10 +23,10 @@
 module board(
     input clk,
     
-    input ok,
-    input reset,
-    
-    input up,
+    input ok, //（按�?(�?)控制�?
+    input reset,// 复位
+    //按钮 上下左右 上下用于调节大小 左右用于切换输入的位�?
+    input up, 
     input down,
     input left,
     input right,
@@ -34,11 +34,11 @@ module board(
     input uart_rx,
     output uart_tx,
     
-    output [7:0] led_l,
-    output [7:0] led_r,
-    output [3:0] led_show,
+    output [7:0] led_l,// 七段数码�?(�?)
+    output [7:0] led_r,// 七段数码�?(�?)
+    output [7:0] led_show, // 流水�?
     
-    output [31:0] light
+    output [31:0] light //连接LED�?
     );
     reg cpu_mode = 1'b0;
     reg [2:0] cpu_step = 3'b0;

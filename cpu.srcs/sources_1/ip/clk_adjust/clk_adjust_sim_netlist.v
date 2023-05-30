@@ -1,11 +1,11 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-// Date        : Sun May 14 15:32:39 2023
-// Host        : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top clk_adjust -prefix
-//               clk_adjust_ clk_wiz_0_sim_netlist.v
-// Design      : clk_wiz_0
+// Date        : Tue May 30 20:00:25 2023
+// Host        : LAPTOP-5JMHFCDN running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim
+//               D:/CSEFirstYear/CS202CPU/cpu/cpu.srcs/sources_1/ip/clk_adjust/clk_adjust_sim_netlist.v
+// Design      : clk_adjust
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
 // Device      : xc7a35tcsg324-1
@@ -25,13 +25,14 @@ module clk_adjust
   (* IBUF_LOW_PWR *) wire input_clk;
   wire uart_clk;
 
-  clk_adjust_clk_wiz_0_clk_wiz inst
+  clk_adjust_clk_adjust_clk_wiz inst
        (.cpu_clk(cpu_clk),
         .input_clk(input_clk),
         .uart_clk(uart_clk));
 endmodule
 
-module clk_adjust_clk_wiz_0_clk_wiz
+(* ORIG_REF_NAME = "clk_adjust_clk_wiz" *) 
+module clk_adjust_clk_adjust_clk_wiz
    (cpu_clk,
     uart_clk,
     input_clk);
@@ -39,14 +40,14 @@ module clk_adjust_clk_wiz_0_clk_wiz
   output uart_clk;
   input input_clk;
 
-  wire clkfbout_buf_clk_wiz_0;
-  wire clkfbout_clk_wiz_0;
+  wire clkfbout_buf_clk_adjust;
+  wire clkfbout_clk_adjust;
   wire cpu_clk;
-  wire cpu_clk_clk_wiz_0;
+  wire cpu_clk_clk_adjust;
   wire input_clk;
-  wire input_clk_clk_wiz_0;
+  wire input_clk_clk_adjust;
   wire uart_clk;
-  wire uart_clk_clk_wiz_0;
+  wire uart_clk_clk_adjust;
   wire NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED;
@@ -66,8 +67,8 @@ module clk_adjust_clk_wiz_0_clk_wiz
 
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkf_buf
-       (.I(clkfbout_clk_wiz_0),
-        .O(clkfbout_buf_clk_wiz_0));
+       (.I(clkfbout_clk_adjust),
+        .O(clkfbout_buf_clk_adjust));
   (* BOX_TYPE = "PRIMITIVE" *) 
   (* CAPACITANCE = "DONT_CARE" *) 
   (* IBUF_DELAY_VALUE = "0" *) 
@@ -76,14 +77,14 @@ module clk_adjust_clk_wiz_0_clk_wiz
     .IOSTANDARD("DEFAULT")) 
     clkin1_ibufg
        (.I(input_clk),
-        .O(input_clk_clk_wiz_0));
+        .O(input_clk_clk_adjust));
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkout1_buf
-       (.I(cpu_clk_clk_wiz_0),
+       (.I(cpu_clk_clk_adjust),
         .O(cpu_clk));
   (* BOX_TYPE = "PRIMITIVE" *) 
   BUFG clkout2_buf
-       (.I(uart_clk_clk_wiz_0),
+       (.I(uart_clk_clk_adjust),
         .O(uart_clk));
   (* BOX_TYPE = "PRIMITIVE" *) 
   MMCME2_ADV #(
@@ -136,17 +137,17 @@ module clk_adjust_clk_wiz_0_clk_wiz
     .SS_MOD_PERIOD(10000),
     .STARTUP_WAIT("FALSE")) 
     mmcm_adv_inst
-       (.CLKFBIN(clkfbout_buf_clk_wiz_0),
-        .CLKFBOUT(clkfbout_clk_wiz_0),
+       (.CLKFBIN(clkfbout_buf_clk_adjust),
+        .CLKFBOUT(clkfbout_clk_adjust),
         .CLKFBOUTB(NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED),
         .CLKFBSTOPPED(NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED),
-        .CLKIN1(input_clk_clk_wiz_0),
+        .CLKIN1(input_clk_clk_adjust),
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKINSTOPPED(NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED),
-        .CLKOUT0(cpu_clk_clk_wiz_0),
+        .CLKOUT0(cpu_clk_clk_adjust),
         .CLKOUT0B(NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED),
-        .CLKOUT1(uart_clk_clk_wiz_0),
+        .CLKOUT1(uart_clk_clk_adjust),
         .CLKOUT1B(NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED),
         .CLKOUT2(NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED),
         .CLKOUT2B(NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED),

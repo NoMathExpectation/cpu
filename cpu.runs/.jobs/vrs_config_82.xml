@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="data_memory_internal_synth_1" LaunchDir="D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/data_memory_internal_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="clk_adjust_synth_1" LaunchDir="D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/clk_adjust_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="data_memory_internal_synth_1"/>
+		<Parent Id="clk_adjust_synth_1"/>
+	</Run>
+</Runs>
+

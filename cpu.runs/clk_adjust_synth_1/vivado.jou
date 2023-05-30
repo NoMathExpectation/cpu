@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Tue May 30 19:59:20 2023
+# Process ID: 27580
+# Current directory: D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/clk_adjust_synth_1
+# Command line: vivado.exe -log clk_adjust.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source clk_adjust.tcl
+# Log file: D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/clk_adjust_synth_1/clk_adjust.vds
+# Journal file: D:/CSEFirstYear/CS202CPU/cpu/cpu.runs/clk_adjust_synth_1\vivado.jou
+#-----------------------------------------------------------
+source clk_adjust.tcl -notrace

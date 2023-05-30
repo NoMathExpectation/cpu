@@ -30,8 +30,7 @@ module led_show(
     reg [1:0] p = 2'b0;
     always @(posedge clk) begin
         p = p + 2'b1;
-        led_show = 4'b0;
-        
+        led_show = 4'b0;       
         led_show[p] <= 1'b1;
         case (p)
             2'b00: begin
