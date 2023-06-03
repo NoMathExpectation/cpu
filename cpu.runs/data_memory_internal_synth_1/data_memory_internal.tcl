@@ -16,6 +16,8 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 create_project -in_memory -part xc7a35tcsg324-1
@@ -26,13 +28,13 @@ set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir D:/projects/sustech/computer_organization/labs/cpu/cpu.cache/wt [current_project]
 set_property parent.project_path D:/projects/sustech/computer_organization/labs/cpu/cpu.xpr [current_project]
-set_property XPM_LIBRARIES XPM_MEMORY [current_project]
+set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_repo_paths d:/projects/sustech/computer_organization/labs/cpu/SEU_CSE_507_user_uart_bmpg_1.3 [current_project]
 set_property ip_output_repo d:/projects/sustech/computer_organization/labs/cpu/cpu.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
-read_ip -quiet d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.xci
+read_ip -quiet D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.xci
 set_property used_in_implementation false [get_files -all d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -85,32 +87,32 @@ write_checkpoint -force -noxdef data_memory_internal.dcp
 create_report "data_memory_internal_synth_1_synth_report_utilization_0" "report_utilization -file data_memory_internal_utilization_synth.rpt -pb data_memory_internal_utilization_synth.pb"
 
 if { [catch {
-  file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal.dcp d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.dcp
+  file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal.dcp D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.dcp
 } _RESULT ] } { 
   send_msg_id runtcl-3 error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
   error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
 }
 
 if { [catch {
-  write_verilog -force -mode synth_stub d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v
+  write_verilog -force -mode synth_stub D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode synth_stub d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl
+  write_vhdl -force -mode synth_stub D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_verilog -force -mode funcsim d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.v
+  write_verilog -force -mode funcsim D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode funcsim d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.vhdl
+  write_vhdl -force -mode funcsim D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
@@ -120,32 +122,32 @@ if { [catch {
 
 
 if { [catch {
-  file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal.dcp d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.dcp
+  file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal.dcp D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal.dcp
 } _RESULT ] } { 
   send_msg_id runtcl-3 error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
   error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
 }
 
 if { [catch {
-  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_stub.v d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v
+  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_stub.v D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_stub.vhdl d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl
+  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_stub.vhdl D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_sim_netlist.v d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.v
+  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_sim_netlist.v D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_sim_netlist.vhdl d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.vhdl
+  file rename -force D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/data_memory_internal_synth_1/data_memory_internal_sim_netlist.vhdl D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
@@ -154,12 +156,12 @@ if { [catch {
 
 if {[file isdir D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal]} {
   catch { 
-    file copy -force d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal
+    file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.v D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal
   }
 }
 
 if {[file isdir D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal]} {
   catch { 
-    file copy -force d:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal
+    file copy -force D:/projects/sustech/computer_organization/labs/cpu/cpu.srcs/sources_1/ip/data_memory_internal/data_memory_internal_stub.vhdl D:/projects/sustech/computer_organization/labs/cpu/cpu.ip_user_files/ip/data_memory_internal
   }
 }

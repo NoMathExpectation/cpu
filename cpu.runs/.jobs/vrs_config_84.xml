@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="clk_adjust_synth_1" LaunchDir="D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/clk_adjust_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="D:/projects/sustech/computer_organization/labs/cpu/cpu.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="clk_adjust_synth_1"/>
+	</Run>
+</Runs>
+

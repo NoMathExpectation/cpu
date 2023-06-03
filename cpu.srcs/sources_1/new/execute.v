@@ -21,14 +21,14 @@
 
 
 module execute(
-    input clk,
+    input run,
     
     input [5:0] opcode,
     
     input [31:0] reg1,
     input [31:0] reg2,
     input [15:0] immediate,
-    output reg [31:0] out,
+    output reg [31:0] out = 32'b0,
     
     input [4:0] shamt,
     input [5:0] funct
@@ -36,13 +36,13 @@ module execute(
     wire [31:0] sign_ext_immediate = {{16{immediate[15]}}, immediate};
     wire [31:0] zero_ext_immediate = {16'b0, immediate};
     
-    always @(posedge clk) begin
+    always @(posedge run) begin
         case(opcode)
-            6'b000100: out = (reg1 == reg2);
-            6'b000101: out = (reg1 != reg2); 
+            6'b000100: out = {31'b0, reg1 == reg2};
+            6'b000101: out = {31'b0, reg1 != reg2}; 
             6'b100011, 6'b101011, 6'b001000, 6'b001001: out = reg1 + sign_ext_immediate;
-            6'b001010: out = slt(reg1, sign_ext_immediate);
-            6'b001011: out = reg1 < sign_ext_immediate;
+            6'b001010: out = {31'b0, slt(reg1, sign_ext_immediate)};
+            6'b001011: out = {31'b0, reg1 < sign_ext_immediate};
             6'b001100: out = reg1 & zero_ext_immediate;
             6'b001101: out = reg1 | zero_ext_immediate;
             6'b001110: out = reg1 ^ zero_ext_immediate;
@@ -60,8 +60,8 @@ module execute(
                 6'b100101: out = reg1 | reg2;
                 6'b100110: out = reg1 ^ reg2;
                 6'b100111: out = ~(reg1 | reg2);
-                6'b101010: out = slt(reg1, reg2);
-                6'b101011: out = reg1 < reg2;
+                6'b101010: out = {31'b0, slt(reg1, reg2)};
+                6'b101011: out = {31'b0, reg1 < reg2};
             endcase
         endcase
     end

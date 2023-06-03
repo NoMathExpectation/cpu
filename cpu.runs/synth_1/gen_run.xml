@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcsg324-1" LaunchTime="1685447954">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg324-1" LaunchTime="1685771617">
   <File Type="PA-TCL" Name="board.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="board_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="board_reports.tcl"/>
@@ -87,27 +87,15 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/alu.v">
+    <File Path="$PPRDIR/prgmip32.coe">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/control_unit.v">
+    <File Path="$PPRDIR/dmem32.coe">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/MemOrIO.v">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
@@ -125,6 +113,7 @@
       </FileInfo>
     </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/constraint_cpu.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
@@ -132,6 +121,7 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2017"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="data_memory_internal"/>
   <BlockFileSet Type="BlockSrcs" Name="clk_adjust"/>
+  <BlockFileSet Type="BlockSrcs" Name="inst_memory_internal"/>
+  <BlockFileSet Type="BlockSrcs" Name="data_memory_internal"/>
 </GenRun>

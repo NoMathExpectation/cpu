@@ -28,8 +28,8 @@ module registers(
 
     input [4:0] read1,
     input [4:0] read2,
-    output reg [31:0] read_data1,
-    output reg [31:0] read_data2,
+    output reg [31:0] read_data1 = 32'b0,
+    output reg [31:0] read_data2 = 32'b0,
     
     input to_write,
     input [4:0] write,
@@ -46,7 +46,7 @@ module registers(
         data[29] = 32'h7ffffffc;
     end
     
-    always @(posedge clk) begin
+    always @(negedge clk) begin
         if (reset) begin
             for (i = 6'd0; i < 6'd32; i = i + 6'd1) begin
                 data[i] = 32'd0;

@@ -22,21 +22,20 @@
 
 module num_to_led(
     input [31:0] number, //number to show
-    input sign,
+    input sign, //show as signed number
     input [7:0] dot, //whether to show dots
-    output reg [63:0] led //output led signal
+    output reg [63:0] led = 64'b0 //output led signal
     );
     wire neg = sign & number[31];
     
     reg [3:0] i;
     reg [3:0] rem;
     reg [31:0] num;
-    always @(*) begin
+
+    always @(number, sign, dot, neg) begin
         num = neg ? ~number + 32'b1 : number;
         
         for (i = 4'd0; i < 4'd8; i = i + 4'd1) begin
-            led[0] = dot[i];
-            
             rem = num % 32'd10;
             case (rem)
                 4'd0: led[63:57] = 7'b1110111;
@@ -55,6 +54,10 @@ module num_to_led(
                 led = led >> 4'd8;
                 num = num / 32'd10;
             end
+        end
+
+        for (i = 4'd0; i < 4'd8; i = i + 4'd1) begin
+            led[8 * i] = dot[i];
         end
         
         if (neg) led[63:57] = 7'b0001000;

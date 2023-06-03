@@ -1,4 +1,7 @@
-//LED LEFT
+set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
+
+set_property PACKAGE_PIN P17 [get_ports {clk}]
+
 set_property IOSTANDARD LVCMOS33 [get_ports {led_l[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_l[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_l[5]}]
@@ -16,7 +19,7 @@ set_property PACKAGE_PIN A1 [get_ports {led_l[3]}]
 set_property PACKAGE_PIN A3 [get_ports {led_l[2]}]
 set_property PACKAGE_PIN B1 [get_ports {led_l[1]}]
 set_property PACKAGE_PIN D5 [get_ports {led_l[0]}]
-//LED RIGHT
+
 set_property IOSTANDARD LVCMOS33 [get_ports {led_r[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_r[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_r[5]}]
@@ -35,22 +38,20 @@ set_property PACKAGE_PIN D3 [get_ports {led_r[2]}]
 set_property PACKAGE_PIN F4 [get_ports {led_r[1]}]
 set_property PACKAGE_PIN H2 [get_ports {led_r[0]}]
 
-//buttom
 set_property IOSTANDARD LVCMOS33 [get_ports {up}]
 set_property IOSTANDARD LVCMOS33 [get_ports {down}]
 set_property IOSTANDARD LVCMOS33 [get_ports {left}]
 set_property IOSTANDARD LVCMOS33 [get_ports {right}]
 set_property IOSTANDARD LVCMOS33 [get_ports {ok}]
-set_property IOSTANDARD LVCMOS33 [get_ports {reset}]
+set_property IOSTANDARD LVCMOS33 [get_ports {not_reset}]
 
 set_property PACKAGE_PIN U4 [get_ports {up}]
 set_property PACKAGE_PIN R17 [get_ports {down}]
 set_property PACKAGE_PIN V1 [get_ports {left}]
 set_property PACKAGE_PIN R11 [get_ports {right}]
 set_property PACKAGE_PIN R15 [get_ports {ok}]
-set_property PACKAGE_PIN P15 [get_ports {reset}]
+set_property PACKAGE_PIN P15 [get_ports {not_reset}]
 
-//led_show
 set_property IOSTANDARD LVCMOS33 [get_ports {led_show[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_show[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_show[5]}]
@@ -69,7 +70,6 @@ set_property PACKAGE_PIN F1 [get_ports {led_show[2]}]
 set_property PACKAGE_PIN E1 [get_ports {led_show[1]}]
 set_property PACKAGE_PIN G6 [get_ports {led_show[0]}]
 
-//LED 
 set_property IOSTANDARD LVCMOS33 [get_ports {light[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {light[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {light[2]}]
@@ -104,14 +104,12 @@ set_property PACKAGE_PIN G3 [get_ports {light[13]}]
 set_property PACKAGE_PIN G4 [get_ports {light[14]}]
 set_property PACKAGE_PIN F6 [get_ports {light[15]}]
 
-//UART
-set_property IOSTANDARD LVCMOS33 [get_ports {uart_rx}]
 set_property IOSTANDARD LVCMOS33 [get_ports {uart_tx}]
+set_property IOSTANDARD LVCMOS33 [get_ports {uart_rx}]
 
-set_property PACKAGE_PIN T4 [get_ports {uart_rx}]
-set_property PACKAGE_PIN N5 [get_ports {uart_tx}]
+set_property PACKAGE_PIN T4 [get_ports {uart_tx}]
+set_property PACKAGE_PIN N5 [get_ports {uart_rx}]
 
-//unused port 
 set_property IOSTANDARD LVCMOS33 [get_ports {light[16]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {light[17]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {light[18]}]
