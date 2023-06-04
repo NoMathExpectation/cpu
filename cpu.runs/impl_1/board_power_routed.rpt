@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-| Date             : Sat Jun  3 14:00:02 2023
+| Date             : Mon Jun  5 01:41:01 2023
 | Host             : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
 | Command          : report_power -file board_power_routed.rpt -pb board_power_summary_routed.pb -rpx board_power_routed.rpx
 | Design           : board
@@ -53,15 +53,15 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |    <0.001 |        6 |       --- |             --- |
-| Slice Logic             |     0.006 |     8756 |       --- |             --- |
-|   LUT as Logic          |     0.006 |     4853 |     20800 |           23.33 |
-|   CARRY4                |    <0.001 |      659 |      8150 |            8.09 |
-|   Register              |    <0.001 |     1940 |     41600 |            4.66 |
+| Slice Logic             |     0.006 |     8905 |       --- |             --- |
+|   LUT as Logic          |     0.006 |     4927 |     20800 |           23.69 |
+|   CARRY4                |    <0.001 |      667 |      8150 |            8.18 |
+|   Register              |    <0.001 |     1971 |     41600 |            4.74 |
 |   F7/F8 Muxes           |    <0.001 |      256 |     32600 |            0.79 |
 |   BUFG                  |    <0.001 |        3 |        32 |            9.38 |
 |   LUT as Shift Register |    <0.001 |       10 |      9600 |            0.10 |
 |   Others                |     0.000 |      133 |       --- |             --- |
-| Signals                 |     0.007 |     7255 |       --- |             --- |
+| Signals                 |     0.007 |     7360 |       --- |             --- |
 | Block RAM               |    <0.001 |       29 |        50 |           58.00 |
 | MMCM                    |     0.086 |        1 |         5 |           20.00 |
 | I/O                     |     0.007 |       65 |       210 |           30.95 |
@@ -76,7 +76,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.024 |       0.014 |      0.010 |
+| Vccint    |       1.000 |     0.025 |       0.014 |      0.010 |
 | Vccaux    |       1.800 |     0.060 |       0.048 |      0.013 |
 | Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -190,7 +190,7 @@ Table of Contents
 |               ramloop[9].ram.r                                                  |    <0.001 |
 |                 prim_init.ram                                                   |    <0.001 |
 |   exec                                                                          |    <0.001 |
-|   inst_mem                                                                      |     0.004 |
+|   inst_mem                                                                      |     0.005 |
 |     inst_mem                                                                    |     0.002 |
 |       U0                                                                        |     0.002 |
 |         inst_blk_mem_gen                                                        |     0.002 |

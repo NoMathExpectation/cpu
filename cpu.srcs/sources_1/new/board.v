@@ -53,7 +53,7 @@ module board(
     wire uart_proc_clk, uart_write, uart_done;
     wire [14:0] uart_addr;
     wire [31:0] uart_data;
-    uart u(.upg_clk_i(~uart_clk), .upg_rst_i(reset), .upg_rx_i(uart_rx), .upg_clk_o(uart_proc_clk), .upg_wen_o(uart_write), .upg_adr_o(uart_addr), .upg_dat_o(uart_data), .upg_done_o(uart_done), .upg_tx_o(uart_tx));
+    uart u(.upg_clk_i(uart_clk), .upg_rst_i(reset), .upg_rx_i(uart_rx), .upg_clk_o(uart_proc_clk), .upg_wen_o(uart_write), .upg_adr_o(uart_addr), .upg_dat_o(uart_data), .upg_done_o(uart_done), .upg_tx_o(uart_tx));
     
     reg [31:0] pc = 32'h003ffffc;
     wire [31:0] inst;
@@ -83,7 +83,7 @@ module board(
     wire [31:0] syscall_write;
     
     wire read_reg = (cpu_step == 3'b001);
-    wire write_reg = (cpu_step == 3'b100) & ~((opcode == 6'b0) & ((funct == 6'b001000) | ((funct == 6'hc) & ~syscall_reg_write))) & (opcode != 6'b101011) & (opcode != 6'b000010);
+    wire write_reg = (cpu_step == 3'b100) & ~((opcode == 6'b0) & ((funct == 6'b001000) | ((funct == 6'hc) & ~syscall_reg_write))) & (opcode != 6'b101011) & (opcode != 6'b000010) & (opcode[5:1] != 6'b00010);
     wire [4:0] reg_read1 = syscall_inst ? 5'd2 : rs;
     wire [4:0] reg_read2 = syscall_inst ? 5'd4 : rt;
     wire [4:0] reg_write = syscall_inst ? 5'd2 : (type_j ? 5'd31 : (type_r ? rd : rt));

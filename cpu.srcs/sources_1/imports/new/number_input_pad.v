@@ -36,11 +36,15 @@ module number_input_pad(
 
     reg [31:0] number_temp = 32'd0;
     reg [3:0] digit_temp = 4'd0;
-    reg [31:0] multiplier_temp = 32'd1; 
+    reg [31:0] multiplier_temp = 32'd1;
 
     localparam [31:0] max = 32'd10000000;
 
+    reg [31:0] cooldown = 32'b0;
+
     always @(posedge clk) begin
+        if (cooldown != 32'b0) cooldown = cooldown - 32'b1;
+
         if (reset) begin
             number <= 32'd0;
             digit <= 4'd0;
@@ -49,7 +53,7 @@ module number_input_pad(
             number_temp <= 32'd0;
             digit_temp <= 4'd0;
             multiplier_temp <= 32'd1;
-        end else if (up | down | left | right) begin
+        end else if ((up | down | left | right) & (cooldown == 32'b0)) begin
             if (up) begin
                 number_temp = number + multiplier;
             end else if (down) begin
@@ -69,6 +73,8 @@ module number_input_pad(
                     digit_temp = 4'd6;
                 end
             end
+
+            cooldown = 32'd2500000;
         end else begin
             number <= number_temp;
             digit <= digit_temp;

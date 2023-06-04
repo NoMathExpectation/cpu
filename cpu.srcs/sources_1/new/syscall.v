@@ -94,7 +94,7 @@ module syscall(
             num_show <= 32'b0;
             num_show_sign <= 1'b0;
         
-            num_read_sign <= 1'b0;
+            num_read_sign <= 1'b1;
         
             value_out <= 32'b0;
             light <= 32'b0;

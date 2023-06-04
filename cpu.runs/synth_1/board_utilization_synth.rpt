@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-| Date         : Sat Jun  3 13:54:50 2023
+| Date         : Mon Jun  5 01:39:19 2023
 | Host         : LAPTOP-QCCN7SPL running 64-bit major release  (build 9200)
 | Command      : report_utilization -file board_utilization_synth.rpt -pb board_utilization_synth.pb
 | Design       : board
@@ -30,11 +30,11 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             | 4556 |     0 |     20800 | 21.90 |
-|   LUT as Logic          | 4556 |     0 |     20800 | 21.90 |
+| Slice LUTs*             | 4636 |     0 |     20800 | 22.29 |
+|   LUT as Logic          | 4636 |     0 |     20800 | 22.29 |
 |   LUT as Memory         |    0 |     0 |      9600 |  0.00 |
-| Slice Registers         | 1575 |     0 |     41600 |  3.79 |
-|   Register as Flip Flop | 1575 |     0 |     41600 |  3.79 |
+| Slice Registers         | 1606 |     0 |     41600 |  3.86 |
+|   Register as Flip Flop | 1606 |     0 |     41600 |  3.86 |
 |   Register as Latch     |    0 |     0 |     41600 |  0.00 |
 | F7 Muxes                |  256 |     0 |     16300 |  1.57 |
 | F8 Muxes                |    0 |     0 |      8150 |  0.00 |
@@ -57,7 +57,7 @@ Table of Contents
 | 20    |          Yes |           - |          Set |
 | 16    |          Yes |           - |        Reset |
 | 39    |          Yes |         Set |            - |
-| 1500  |          Yes |       Reset |            - |
+| 1531  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -146,15 +146,15 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     | 2273 |                 LUT |
-| FDRE     | 1500 |        Flop & Latch |
-| LUT3     |  988 |                 LUT |
-| LUT4     |  744 |                 LUT |
-| LUT5     |  661 |                 LUT |
-| CARRY4   |  639 |          CarryLogic |
-| LUT2     |  551 |                 LUT |
+| LUT6     | 2286 |                 LUT |
+| FDRE     | 1531 |        Flop & Latch |
+| LUT3     | 1041 |                 LUT |
+| LUT4     |  755 |                 LUT |
+| CARRY4   |  647 |          CarryLogic |
+| LUT5     |  637 |                 LUT |
+| LUT2     |  583 |                 LUT |
 | MUXF7    |  256 |               MuxFx |
-| LUT1     |  134 |                 LUT |
+| LUT1     |  165 |                 LUT |
 | OBUF     |   56 |                  IO |
 | FDSE     |   39 |        Flop & Latch |
 | FDPE     |   20 |        Flop & Latch |

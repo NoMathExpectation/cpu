@@ -56,7 +56,7 @@ module board_sim(
     wire uart_proc_clk, uart_write, uart_done;
     wire [14:0] uart_addr;
     wire [31:0] uart_data;
-    uart u(.upg_clk_i(~uart_clk), .upg_rst_i(reset), .upg_rx_i(uart_rx), .upg_clk_o(uart_proc_clk), .upg_wen_o(uart_write), .upg_adr_o(uart_addr), .upg_dat_o(uart_data), .upg_done_o(uart_done), .upg_tx_o(uart_tx));
+    uart u(.upg_clk_i(uart_clk), .upg_rst_i(reset), .upg_rx_i(uart_rx), .upg_clk_o(uart_proc_clk), .upg_wen_o(uart_write), .upg_adr_o(uart_addr), .upg_dat_o(uart_data), .upg_done_o(uart_done), .upg_tx_o(uart_tx));
     
     reg [31:0] pc = 32'h003ffffc;
     wire [31:0] inst;
