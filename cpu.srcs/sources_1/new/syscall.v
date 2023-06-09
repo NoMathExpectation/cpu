@@ -21,7 +21,7 @@
 
 
 module syscall(
-    input run,
+    input run, //if syscall needs to run
     input reset,
     input ok,
     
@@ -31,18 +31,18 @@ module syscall(
     input right,
     
     input cpu_clk, //5MHz
-    output ctrl_cpu_clk,
+    output ctrl_cpu_clk, //output cpu clock for control
     
-    output [7:0] led_l,
-    output [7:0] led_r,
-    output [7:0] led_show,
+    output [7:0] led_l, //left part of 7-seg led
+    output [7:0] led_r, //right part of 7-seg led
+    output [7:0] led_show, //used to control which part to show
     
-    output reg [31:0] light = 32'b0,
+    output reg [31:0] light = 32'b0, //lights to show
     
-    input [31:0] mode,
-    input [31:0] value_in,
-    output reg [31:0] value_out = 32'b0,
-    output reg_write
+    input [31:0] mode, //syscall mode
+    input [31:0] value_in, //syscall value
+    output reg [31:0] value_out = 32'b0, //syscall return value
+    output reg_write //if need to write back
     );
     reg block = 1'b0;
     reg [63:0] sleep = 64'b0;

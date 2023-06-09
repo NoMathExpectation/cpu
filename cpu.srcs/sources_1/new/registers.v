@@ -24,16 +24,16 @@ module registers(
     input reset,
     input clk,
 
-    input to_read,
+    input to_read, //if read
 
-    input [4:0] read1,
-    input [4:0] read2,
-    output reg [31:0] read_data1 = 32'b0,
-    output reg [31:0] read_data2 = 32'b0,
+    input [4:0] read1, //register number 1 to read
+    input [4:0] read2, //register number 2 to read
+    output reg [31:0] read_data1 = 32'b0, //data from register 1
+    output reg [31:0] read_data2 = 32'b0, //data from register 2
     
-    input to_write,
-    input [4:0] write,
-    input [31:0] write_data
+    input to_write, //if write
+    input [4:0] write, //register number to write
+    input [31:0] write_data //data to write
     );
     reg [31:0] data [31:0];
     reg [5:0] i;

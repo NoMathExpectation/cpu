@@ -21,14 +21,14 @@
 
 
 module execute(
-    input run,
+    input run, //if execute needs to run
     
     input [5:0] opcode,
     
-    input [31:0] reg1,
-    input [31:0] reg2,
+    input [31:0] reg1, //data from register
+    input [31:0] reg2, //data from register
     input [15:0] immediate,
-    output reg [31:0] out = 32'b0,
+    output reg [31:0] out = 32'b0, //result
     
     input [4:0] shamt,
     input [5:0] funct

@@ -27,13 +27,13 @@ module board(
     input not_reset, //RESET#
 
     //number input pad
-    input up, 
+    input up,
     input down,
     input left,
     input right,
     
-    input uart_rx,
-    output uart_tx,
+    input uart_rx, //receive data
+    output uart_tx, //send data
     
     output [7:0] led_l, //left part of 7-seg led
     output [7:0] led_r, //right part of 7-seg led
@@ -60,8 +60,8 @@ module board(
     
     wire [5:0] opcode = inst[31:26];
     
-    wire type_r = (opcode == 5'b0);
-    wire type_j = (opcode[5:1] == 5'b00101);
+    wire type_r = (opcode == 6'b0);
+    wire type_j = (opcode[5:1] == 5'b00001);
     wire type_i = ~(type_r | type_j);
         
     wire [4:0] rs = inst[25:21];
@@ -83,7 +83,7 @@ module board(
     wire [31:0] syscall_write;
     
     wire read_reg = (cpu_step == 3'b001);
-    wire write_reg = (cpu_step == 3'b100) & ~((opcode == 6'b0) & ((funct == 6'b001000) | ((funct == 6'hc) & ~syscall_reg_write))) & (opcode != 6'b101011) & (opcode != 6'b000010) & (opcode[5:1] != 6'b00010);
+    wire write_reg = (cpu_step == 3'b100) & ~((opcode == 6'b0) & ((funct == 6'b001000 /*jr*/) | ((funct == 6'hc) & ~syscall_reg_write /*syscall*/))) & (opcode != 6'b101011) /*sw*/ & (opcode != 6'b000010) /*j*/ & (opcode[5:1] != 6'b00010) /*beq bne*/;
     wire [4:0] reg_read1 = syscall_inst ? 5'd2 : rs;
     wire [4:0] reg_read2 = syscall_inst ? 5'd4 : rt;
     wire [4:0] reg_write = syscall_inst ? 5'd2 : (type_j ? 5'd31 : (type_r ? rd : rt));
@@ -91,7 +91,7 @@ module board(
     
     wire [31:0] mem_data_out;
     wire [31:0] exec_res;
-    wire [31:0] write_data = syscall_inst ? syscall_write : (opcode == 6'b100011 ? mem_data_out : (type_j ? pc + 32'd8 : exec_res));
+    wire [31:0] write_data = syscall_inst ? syscall_write : (opcode == 6'b100011 ? mem_data_out : (type_j ? pcp4 : exec_res));
     registers regs(.reset(reset), .clk(ctrl_cpu_clk), .to_read(read_reg), .read1(reg_read1), .read2(reg_read2), .read_data1(read_data1), .read_data2(read_data2), .to_write(write_reg), .write(reg_write), .write_data(write_data));
     
     wire call = (cpu_step == 3'b010) & syscall_inst;
@@ -133,7 +133,7 @@ module board(
                 
                 if (jump) begin
                     if (opcode[5:1] == 5'b00010 & exec_res[0]) pc = pcp4 + branch_addr;
-                    else if (opcode[5:1] == 5'b00001) pc = jump_addr;
+                    else if (type_j) pc = jump_addr;
                     else if ((opcode == 6'b0) & (funct == 6'b001000)) pc = read_data1;
                     else pc = pcp4;
                 end

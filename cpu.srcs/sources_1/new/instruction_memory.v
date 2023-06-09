@@ -21,14 +21,14 @@
 
 
 module instruction_memory(
-    input cpu_mode,
+    input cpu_mode, //0 for uart, 1 for cpu
 
     input cpu_clk,
-    input [31:0] cpu_next_addr,
-    output [31:0] cpu_inst,
+    input [31:0] cpu_next_addr, //from pc
+    output [31:0] cpu_inst, //instruction
     
     input uart_clk,
-    input uart_write,
+    input uart_write, //if uart write
     input [14:0] uart_addr,
     input [31:0] uart_inst
     );

@@ -21,16 +21,16 @@
 
 
 module data_memory(
-    input cpu_mode,
+    input cpu_mode, //0 for uart, 1 for cpu
 
     input cpu_clk,
-    input cpu_write,
+    input cpu_write, //if cpu write
     input [31:0] cpu_addr,
     input [31:0] cpu_data_in,
     output [31:0] cpu_data_out,
     
     input uart_clk,
-    input uart_write,
+    input uart_write, //if uart write
     input [14:0] uart_addr,
     input [31:0] uart_data_in
     );
